@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'wonder-purple': '#8B5CF6',
+            'wonder-pink': '#EC4899',
+            'wonder-blue': '#3B82F6',
+            'wonder-yellow': '#FBBF24',
+            'wonder-green': '#10B981',
+            'wonder-orange': '#F97316'
+          }
+        }
+      }
+    }
+  </script>
+  <title>Register - WonderKids</title>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 min-h-screen flex items-center justify-center p-4">
+  
+  <!-- Decorative Elements -->
+  <div class="absolute top-10 left-10 text-6xl text-wonder-blue animate-bounce">
+    <i class="fas fa-palette"></i>
+  </div>
+  <div class="absolute top-20 right-20 text-6xl text-wonder-yellow animate-pulse">
+    <i class="fas fa-sparkles"></i>
+  </div>
+  <div class="absolute bottom-10 left-20 text-6xl text-wonder-orange animate-bounce delay-100">
+    <i class="fas fa-trophy"></i>
+  </div>
+  <div class="absolute bottom-20 right-10 text-6xl text-wonder-green animate-pulse delay-200">
+    <i class="fas fa-bullseye"></i>
+  </div>
+
+  <div class="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-md relative z-10 border-4 border-wonder-pink">
+    <!-- Logo/Header -->
+    <div class="text-center mb-6">
+      <a href="index.html" class="text-4xl font-bold bg-gradient-to-r from-wonder-purple to-wonder-pink bg-clip-text text-transparent flex items-center justify-center gap-2">
+        <i class="fas fa-graduation-cap"></i> WonderKids
+      </a>
+      <h2 class="text-3xl font-bold mt-4 text-gray-800 flex items-center justify-center gap-2">
+        Join Our Adventure! <i class="fas fa-gift text-wonder-pink"></i>
+      </h2>
+      <p class="text-gray-600 mt-2">Create your account and start learning!</p>
+    </div>
+
+    <form action="../api/auth/register.php" method="POST">
+      <div class="mb-5">
+        <label for="username" class="block text-lg font-bold text-wonder-purple mb-2 flex items-center gap-2">
+          <i class="fas fa-user"></i> Choose Your Username
+        </label>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-wonder-purple">
+            <i class="fas fa-user-circle text-xl"></i>
+          </span>
+          <input 
+            type="text" 
+            id="username" 
+            name="username" 
+            required 
+            class="w-full pl-12 pr-4 py-3 border-3 border-wonder-blue rounded-xl focus:outline-none focus:ring-4 focus:ring-wonder-purple focus:border-wonder-purple transition duration-300 text-lg" 
+            placeholder="Pick a cool username"
+          />
+        </div>
+      </div>
+
+      <div class="mb-5">
+        <label for="email" class="block text-lg font-bold text-wonder-blue mb-2 flex items-center gap-2">
+          <i class="fas fa-envelope"></i> Your Email
+        </label>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-wonder-blue">
+            <i class="fas fa-at text-xl"></i>
+          </span>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            required 
+            class="w-full pl-12 pr-4 py-3 border-3 border-wonder-blue rounded-xl focus:outline-none focus:ring-4 focus:ring-wonder-blue focus:border-wonder-blue transition duration-300 text-lg" 
+            placeholder="your.email@example.com"
+          />
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <label for="password" class="block text-lg font-bold text-wonder-pink mb-2 flex items-center gap-2">
+          <i class="fas fa-lock"></i> Create Password
+        </label>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-wonder-pink">
+            <i class="fas fa-key text-xl"></i>
+          </span>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            required 
+            class="w-full pl-12 pr-4 py-3 border-3 border-wonder-blue rounded-xl focus:outline-none focus:ring-4 focus:ring-wonder-pink focus:border-wonder-pink transition duration-300 text-lg" 
+            placeholder="Make it strong!"
+          />
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        class="w-full bg-gradient-to-r from-wonder-pink to-wonder-purple text-white font-bold text-xl p-4 rounded-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 flex items-center justify-center gap-2"
+      >
+        Start My Journey! <i class="fas fa-rocket"></i>
+      </button>
+    </form>
+
+    <div class="mt-6 text-center">
+      <p class="text-gray-600">
+        Already have an account? 
+        <a href="login.html" class="text-wonder-pink font-bold hover:text-wonder-purple transition flex items-center justify-center gap-1">
+          Login Here! <i class="fas fa-arrow-right"></i>
+        </a>
+      </p>
+    </div>
+
+    <!-- Decorative Bottom -->
+    <div class="flex justify-center mt-6 gap-4 text-3xl">
+      <span class="animate-bounce text-wonder-purple"><i class="fas fa-gamepad"></i></span>
+      <span class="animate-pulse text-wonder-blue"><i class="fas fa-book"></i></span>
+      <span class="animate-bounce delay-100 text-wonder-pink"><i class="fas fa-flask"></i></span>
+      <span class="animate-pulse delay-200 text-wonder-green"><i class="fas fa-brain"></i></span>
+      <span class="animate-bounce delay-300 text-wonder-orange"><i class="fas fa-lightbulb"></i></span>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WonderKids - Math Playground</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'wonder-purple': '#8B5CF6',
+                        'wonder-pink': '#EC4899',
+                        'wonder-blue': '#3B82F6',
+                        'wonder-yellow': '#FBBF24',
+                        'wonder-green': '#10B981',
+                        'wonder-orange': '#F97316'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-purple-300 via-pink-200 to-blue-300 min-h-screen">
+    
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-br from-purple-300 via-white to-blue-100 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo/Brand -->
+                <div class="text-lg lg:text-3xl font-bold bg-gradient-to-r from-wonder-purple to-wonder-pink bg-clip-text text-transparent">
+                    🎓 WonderKids
+                </div>
+                
+                <!-- Auth Buttons -->
+                <div class="flex gap-2 lg:gap-4">
+                    <a href="login.html" class="px-3 py-1.5 text-sm lg:px-6 lg:py-2 lg:text-base border-2 border-wonder-purple text-wonder-purple rounded-full font-semibold hover:bg-wonder-purple hover:text-white transition duration-300">
+                        Sign In
+                    </a>
+                    <a href="subscribe.html" class="px-3 py-1.5 text-sm lg:px-6 lg:py-2 lg:text-base bg-gradient-to-r from-wonder-purple to-wonder-pink text-white rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition duration-300">
+                        Subscribe
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="container mx-auto px-6 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-3xl lg:text-5xl font-bold text-gray-800 mb-4">
+                Learn Math Through <span class="bg-gradient-to-r from-wonder-purple to-wonder-pink bg-clip-text text-transparent">Fun & Games!</span>
+            </h1>
+            <p class="text-md lg:text-xl text-gray-600">Choose your adventure and start learning today!</p>
+        </div>
+
+        <!-- Main Category Buttons -->
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-16">
+            <!-- Math Games -->
+            <div class="bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-4 border-wonder-purple">
+                <div class="text-6xl mb-4 text-center">🎮</div>
+                <h3 class="text-xl font-bold text-center text-wonder-purple">Math Games</h3>
+            </div>
+
+            <!-- Math Stories -->
+            <div class="bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-4 border-wonder-pink">
+                <div class="text-6xl mb-4 text-center">📚</div>
+                <h3 class="text-xl font-bold text-center text-wonder-pink">Math Stories</h3>
+            </div>
+
+            <!-- Logic Lab -->
+            <div class="bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-4 border-wonder-blue">
+                <div class="text-6xl mb-4 text-center">🧪</div>
+                <h3 class="text-xl font-bold text-center text-wonder-blue">Logic Lab</h3>
+            </div>
+
+            <!-- Brain Boosts -->
+            <div class="bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-4 border-wonder-green">
+                <div class="text-6xl mb-4 text-center">🧠</div>
+                <h3 class="text-xl font-bold text-center text-wonder-green">Brain Boosts</h3>
+            </div>
+
+            <!-- Library -->
+            <div class="bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-4 border-wonder-orange">
+                <div class="text-6xl mb-4 text-center">📖</div>
+                <h3 class="text-xl font-bold text-center text-wonder-orange">Library</h3>
+            </div>
+        </div>
+
+        <!-- Age Selection -->
+        <div class="bg-white rounded-3xl p-8 shadow-2xl mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Select Your Grade Level</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                <!-- K -->
+                <button class="bg-gradient-to-br from-red-400 to-red-500 text-white rounded-2xl py-6 px-4 font-bold text-2xl hover:shadow-lg transform hover:scale-110 transition duration-300">
+                    K
+                </button>
+                
+                <!-- Grade 1 -->
+                <button class="bg-gradient-to-br from-orange-400 to-orange-500 text-white rounded-2xl py-6 px-4 font-bold text-2xl hover:shadow-lg transform hover:scale-110 transition duration-300">
+                    1
+                </button>
+                
+                <!-- Grade 2 -->
+                <button class="bg-gradient-to-br from-yellow-400 to-yellow-500 text-white rounded-2xl py-6 px-4 font-bold text-2xl hover:shadow-lg transform hover:scale-110 transition duration-300">
+                    2
+                </button>
+                
+                <!-- Grade 3 -->
+                <button class="bg-gradient-to-br from-green-400 to-green-500 text-white rounded-2xl py-6 px-4 font-bold text-2xl hover:shadow-lg transform hover:scale-110 transition duration-300">
+                    3
+                </button>
+                
+                <!-- Grade 4 -->
+                <button class="bg-gradient-to-br from-blue-400 to-blue-500 text-white rounded-2xl py-6 px-4 font-bold text-2xl hover:shadow-lg transform hover:scale-110 transition duration-300">
+                    4
+                </button>
+                
+                <!-- Grade 5 -->
+                <button class="bg-gradient-to-br from-indigo-400 to-indigo-500 text-white rounded-2xl py-6 px-4 font-bold text-2xl hover:shadow-lg transform hover:scale-110 transition duration-300">
+                    5
+                </button>
+                
+                <!-- Grade 6+ -->
+                <button class="bg-gradient-to-br from-purple-400 to-purple-500 text-white rounded-2xl py-6 px-4 font-bold text-2xl hover:shadow-lg transform hover:scale-110 transition duration-300">
+                    6+
+                </button>
+            </div>
+        </div>
+
+        <!-- Math Practice Games Section -->
+        <div class="bg-white rounded-3xl p-8 shadow-2xl">
+            <h2 class="text-4xl font-bold text-center mb-4 bg-gradient-to-r from-wonder-purple to-wonder-pink bg-clip-text text-transparent">Math Practice Games</h2>
+            <p class="text-center text-gray-600 mb-8 text-lg">Choose a game and start practicing!</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+                
+                <!-- Game Card 1: Equal Fractions -->
+                <div class="bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-purple-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/fractionforest3.png" alt="Equal Fractions" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Equal Fractions</h3>
+                </div>
+
+                <!-- Game Card 2: Perimeter Snatch -->
+                <div class="bg-gradient-to-br from-pink-100 to-pink-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-pink-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/perimetersnatchjr.png" alt="Perimeter Snatch" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Perimeter Snatch</h3>
+                </div>
+
+                <!-- Game Card 3: Candy Challenge -->
+                <div class="bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-yellow-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/candychallenge.png" alt="Candy Challenge" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Candy Challenge</h3>
+                </div>
+
+                <!-- Game Card 4: Times Table Duck -->
+                <div class="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-blue-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/times-table-180.png" alt="Times Table Duck" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Times Table Duck</h3>
+                </div>
+
+                <!-- Game Card 5: Secret Code Addition -->
+                <div class="bg-gradient-to-br from-green-100 to-green-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-green-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/secretcodeadditionpuzzle.png" alt="Secret Code Addition" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Secret Code Addition</h3>
+                </div>
+
+                <!-- Game Card 6: Musical Mixup -->
+                <div class="bg-gradient-to-br from-orange-100 to-orange-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-orange-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/musicalmixup.png" alt="Musical Mixup" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Musical Mixup</h3>
+                </div>
+
+                <!-- Game Card 7: Rocket Angles -->
+                <div class="bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-purple-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/rocketangles.png" alt="Rocket Angles" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Rocket Angles</h3>
+                </div>
+
+                <!-- Game Card 8: Swap Sums -->
+                <div class="bg-gradient-to-br from-pink-100 to-pink-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-pink-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/swap-sums-180x180.png" alt="Swap Sums" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Swap Sums</h3>
+                </div>
+
+                <!-- Game Card 9: Tangram Puzzles -->
+                <div class="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-blue-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/tangram-puzzles-180x180.png" alt="Tangram Puzzles" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Tangram Puzzles</h3>
+                </div>
+
+                <!-- Game Card 10: Candy Cashier -->
+                <div class="bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-yellow-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/candycashier.png" alt="Candy Cashier" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Candy Cashier</h3>
+                </div>
+
+                <!-- Game Card 11: Bingo Fractions -->
+                <div class="bg-gradient-to-br from-green-100 to-green-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-green-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/bingo-fractions-number-line.png" alt="Bingo Fractions" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Bingo Fractions</h3>
+                </div>
+
+                <!-- Game Card 12: Decention Jr -->
+                <div class="bg-gradient-to-br from-orange-100 to-orange-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-orange-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/decentionjr.png" alt="Decention Jr" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Decention Jr</h3>
+                </div>
+
+                <!-- Game Card 13: Monster Stroll -->
+                <div class="bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-purple-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/monsterstrollmultiplication.png" alt="Monster Stroll" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Monster Stroll</h3>
+                </div>
+
+                <!-- Game Card 14: PEMDAS Exhibit -->
+                <div class="bg-gradient-to-br from-pink-100 to-pink-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-pink-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/pemdasexhibit.png" alt="PEMDAS Exhibit" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">PEMDAS Exhibit</h3>
+                </div>
+
+                <!-- Game Card 15: Triplets -->
+                <div class="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-blue-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/triplets.png" alt="Triplets" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Triplets</h3>
+                </div>
+
+                <!-- Game Card 16: Math Monster -->
+                <div class="bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-yellow-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/mathmonsterfractions.png" alt="Math Monster" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Math Monster</h3>
+                </div>
+
+                <!-- Game Card 17: Adding Fractions -->
+                <div class="bg-gradient-to-br from-green-100 to-green-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-green-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/fractionforest6.png" alt="Adding Fractions" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Adding Fractions</h3>
+                </div>
+
+                <!-- Game Card 18: Sum Stacks -->
+                <div class="bg-gradient-to-br from-orange-100 to-orange-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-orange-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/sumstacks.png" alt="Sum Stacks" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Sum Stacks</h3>
+                </div>
+
+                <!-- Game Card 19: Galaxy Pals -->
+                <div class="bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-purple-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/galaxypalsdecimals.png" alt="Galaxy Pals" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Galaxy Pals</h3>
+                </div>
+
+                <!-- Game Card 20: Decimal Puzzle -->
+                <div class="bg-gradient-to-br from-pink-100 to-pink-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-pink-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/numberconundrumdecimals.png" alt="Decimal Puzzle" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Decimal Puzzle</h3>
+                </div>
+
+                <!-- Game Card 21: Sum Blocks -->
+                <div class="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-blue-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/sumblocks.png" alt="Sum Blocks" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Sum Blocks</h3>
+                </div>
+
+                <!-- Game Card 22: Code Panda -->
+                <div class="bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-yellow-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/code-panda-180x180.png" alt="Code Panda" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Code Panda</h3>
+                </div>
+
+                <!-- Game Card 23: Zero Numbers -->
+                <div class="bg-gradient-to-br from-green-100 to-green-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-green-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/zero-numbers-180x180.png" alt="Zero Numbers" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Zero Numbers</h3>
+                </div>
+
+                <!-- Game Card 24: Follow the Code -->
+                <div class="bg-gradient-to-br from-orange-100 to-orange-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-orange-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/followthecode.png" alt="Follow the Code" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Follow the Code</h3>
+                </div>
+
+                <!-- Game Card 25: Number Sequence -->
+                <div class="bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-purple-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/numbersequence.png" alt="Number Sequence" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Number Sequence</h3>
+                </div>
+
+                <!-- Game Card 26: Sum Links 2 -->
+                <div class="bg-gradient-to-br from-pink-100 to-pink-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-pink-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/sumlinks2.png" alt="Sum Links 2" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Sum Links 2</h3>
+                </div>
+
+                <!-- Game Card 27: Close Numbers -->
+                <div class="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-blue-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/close-numbers-180.png" alt="Close Numbers" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Close Numbers</h3>
+                </div>
+
+                <!-- Game Card 28: Math Adventure -->
+                <div class="bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-yellow-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/math_adventure_multiplication_180.png" alt="Math Adventure" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Math Adventure</h3>
+                </div>
+
+                <!-- Game Card 29: Do/Undo Multiplication -->
+                <div class="bg-gradient-to-br from-green-100 to-green-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-green-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/doundomultiplication.png" alt="Do/Undo Multiplication" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Do/Undo Multiplication</h3>
+                </div>
+
+                <!-- Game Card 30: Chain Sums -->
+                <div class="bg-gradient-to-br from-orange-100 to-orange-200 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer border-2 border-orange-300">
+                    <div class="rounded-xl h-32 md:h-48 flex items-center justify-center mb-2 md:mb-3 overflow-hidden bg-white">
+                        <img src="/WonderKids/images/chainsums.png" alt="Chain Sums" class="w-full h-full object-cover rounded-xl" />
+                    </div>
+                    <h3 class="text-center font-bold text-gray-800 text-xs md:text-sm">Chain Sums</h3>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-16 py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Math Playground -->
+                <div>
+                    <h3 class="text-lg font-bold text-wonder-purple mb-4">MATH PLAYGROUND</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Kindergarten Math</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">1st Grade Math</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">2nd Grade Math</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">3rd Grade Math</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">4th Grade Math</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">5th Grade Math</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">6th Grade Math</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Word Problems</a></li>
+                    </ul>
+                </div>
+
+                <!-- Math Practice -->
+                <div>
+                    <h3 class="text-lg font-bold text-wonder-purple mb-4">MATH PRACTICE</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Addition Practice</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Subtraction Practice</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Multiplication Practice</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Division Practice</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Fraction Practice</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Ratio Practice</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Prealgebra Practice</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Geometry Practice</a></li>
+                    </ul>
+                </div>
+
+                <!-- Learning Lab -->
+                <div>
+                    <h3 class="text-lg font-bold text-wonder-purple mb-4">LEARNING LAB</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Logic Challenges</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Classics Collection</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Math Puzzles</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Spatial Reasoning</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Coding Activities</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Strategy Challenges</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Two-Player Activities</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Learning Activities</a></li>
+                    </ul>
+                </div>
+
+                <!-- Premium Math -->
+                <div>
+                    <h3 class="text-lg font-bold text-wonder-purple mb-4">PREMIUM MATH</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Thinkagons</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Reflectagons</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Bonus Math Practice</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Bonus Problem Solving</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Bonus Word Practice</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Focused Classroom</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Focused Family</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Subscribe</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Second Row of Footer -->
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+                
+                <!-- Fraction Forest -->
+                <div>
+                    <h3 class="text-lg font-bold text-wonder-purple mb-4">FRACTION FOREST</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Unit Fractions</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Unit Fractions Pro</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Fraction Playground 1</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Equal Fractions</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Equal Fractions Pro</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Fraction Playground 2</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Adding Fractions</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Adding Fractions Pro</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Fraction Playground 3</a></li>
+                    </ul>
+                </div>
+
+                <!-- Thinking Blocks -->
+                <div>
+                    <h3 class="text-lg font-bold text-wonder-purple mb-4">THINKING BLOCKS</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">TB Junior</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">TB Addition</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">TB Multiplication</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">TB Fractions</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">TB Ratios</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Modeling Tool</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Printables</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Videos</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Word Problems</a></li>
+                    </ul>
+                </div>
+
+                <!-- Number Puzzles -->
+                <div>
+                    <h3 class="text-lg font-bold text-wonder-purple mb-4">NUMBER PUZZLES</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Sum Stacks</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Number Sequence</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Sum Links</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Sum Blocks</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Chain Sums</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Sum Slider</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Stretch Sums</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Swap Sums</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Overlap Sums</a></li>
+                    </ul>
+                </div>
+
+                <!-- Teaching Math -->
+                <div>
+                    <h3 class="text-lg font-bold text-wonder-purple mb-4">TEACHING MATH</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Teachers' Guides</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Algebra Puzzles</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Strategic Multiplication</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Fraction Tasks</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Problem Solving</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">3rd Grade Math</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Visual Math Tools</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Drift Boss Math</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-wonder-purple transition">Model Word Problems</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-gray-200 mt-12 pt-8 text-center text-gray-600">
+                <p>&copy; 2025 WonderKids. Making Math Fun! 🚀</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
