@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Surpass - Remainders | WonderKids</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'wonder-purple': '#8B5CF6',
+                        'wonder-pink': '#EC4899',
+                        'wonder-blue': '#3B82F6',
+                        'game-purple': '#7B3F8E',
+                        'game-pink': '#C84B85'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .cell {
+            transition: all 0.3s ease;
+        }
+        .cell:hover:not(.disabled) {
+            transform: scale(1.05);
+        }
+        .cell.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .player-disc {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .player1-disc {
+            background: linear-gradient(145deg, #ff8c42, #ff6b35);
+            box-shadow: 0 4px 6px rgba(255, 107, 53, 0.4);
+        }
+        .player2-disc {
+            background: linear-gradient(145deg, #5a7c5a, #3d5a3d);
+            box-shadow: 0 4px 6px rgba(58, 90, 64, 0.4);
+        }
+        .trapped {
+            animation: flip 0.6s ease;
+        }
+        @keyframes flip {
+            0%, 100% { transform: rotateY(0deg); }
+            50% { transform: rotateY(180deg); }
+        }
+        .pulse-animation {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+        .timer-bar {
+            transition: width 1s linear;
+        }
+        .timer-warning {
+            animation: warning-blink 0.5s infinite;
+        }
+        @keyframes warning-blink {
+            0%, 100% { background-color: #EF4444; }
+            50% { background-color: #F97316; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-game-pink via-purple-400 to-game-purple">
+
+    <!-- Home Button -->
+    <div class="absolute top-4 left-4 z-50">
+        <a href="index.html" class="bg-white/30 backdrop-blur-sm hover:bg-white/50 text-white rounded-full p-2 shadow-lg transition duration-300 flex items-center justify-center w-12 h-12">
+            <i class="fas fa-home text-xl"></i>
+        </a>
+    </div>
+
+    <!-- Start Screen -->
+    <div id="startScreen" class="flex items-center justify-center h-screen p-4">
+        <div class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-6 max-w-3xl w-full">
+            <h1 class="text-3xl md:text-4xl font-bold text-center mb-3 text-game-purple">
+                Math Surpass - Remainders
+            </h1>
+            
+            <div class="bg-game-purple/10 rounded-xl p-4 mb-4">
+                <p class="text-sm md:text-base text-gray-700 text-center">
+                    Find the remainders on the game board. Flip your opponent's discs when they're trapped between two of your own. You have 15 seconds per turn!
+                </p>
+            </div>
+
+            <h2 class="text-xl md:text-2xl font-bold text-center mb-3 text-game-purple">Choose a Challenge</h2>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <button onclick="selectChallenge('easy')" class="challenge-btn bg-gradient-to-br from-purple-400 to-purple-600 hover:from-purple-500 hover:to-purple-700 text-white rounded-xl p-4 shadow-xl transform hover:scale-105 transition duration-300">
+                    <div class="text-2xl mb-2">
+                        <span class="font-bold">4r2 5r3</span>
+                    </div>
+                    <p class="font-bold text-sm">Divisors: 2 to 5</p>
+                </button>
+                <button onclick="selectChallenge('hard')" class="challenge-btn bg-gradient-to-br from-pink-400 to-pink-600 hover:from-pink-500 hover:to-pink-700 text-white rounded-xl p-4 shadow-xl transform hover:scale-105 transition duration-300">
+                    <div class="text-2xl mb-2">
+                        <span class="font-bold">3r8 2r6</span>
+                    </div>
+                    <p class="font-bold text-sm">Divisors: 2 to 9</p>
+                </button>
+            </div>
+
+            <h2 class="text-xl md:text-2xl font-bold text-center mb-3 text-game-purple">Choose a Partner</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <button onclick="selectPartner('computer')" class="partner-btn bg-gradient-to-br from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white rounded-xl p-4 shadow-xl transform hover:scale-105 transition duration-300">
+                    <div class="text-4xl mb-2">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <p class="font-bold text-lg">Computer</p>
+                </button>
+                <button onclick="selectPartner('friend')" class="partner-btn bg-gradient-to-br from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white rounded-xl p-4 shadow-xl transform hover:scale-105 transition duration-300">
+                    <div class="text-4xl mb-2">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <p class="font-bold text-lg">Friend</p>
+                </button>
+            </div>
+
+            <div class="mt-4 text-center">
+                <button id="startGameBtn" onclick="startGame()" disabled class="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white font-bold text-lg px-8 py-3 rounded-full shadow-xl transform hover:scale-105 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                    <i class="fas fa-play mr-2"></i> Start Game
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="gameScreen" class="hidden h-screen p-2 flex items-center justify-center">
+        <div class="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-3 max-w-4xl w-full">
+            
+            <!-- Top Bar -->
+            <div class="flex justify-between items-center mb-2">
+                <button onclick="goHome()" class="bg-white/50 hover:bg-white/70 text-game-purple rounded-full p-1.5 shadow-lg transition duration-300">
+                    <i class="fas fa-home text-lg"></i>
+                </button>
+                
+                <!-- Question Display with Timer -->
+                <div class="flex-grow mx-3">
+                    <div class="bg-gradient-to-r from-game-purple to-game-pink text-white rounded-xl px-4 py-2 text-center">
+                        <h2 id="question" class="text-xl md:text-2xl font-bold">33 ÷ 5</h2>
+                        <p class="text-xs" id="questionSubtext">What's the remainder?</p>
+                    </div>
+                    <!-- Timer Bar -->
+                    <div class="mt-1.5 bg-gray-200 rounded-full h-2 overflow-hidden">
+                        <div id="timerBar" class="timer-bar h-full bg-green-500 rounded-full" style="width: 100%;"></div>
+                    </div>
+                    <p id="timerText" class="text-center text-xs font-bold mt-0.5 text-gray-700">15s</p>
+                </div>
+                
+                <button onclick="resetGame()" class="bg-white/50 hover:bg-white/70 text-game-purple rounded-full p-1.5 shadow-lg transition duration-300">
+                    <i class="fas fa-redo text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Game Board -->
+            <div class="flex gap-2">
+                <!-- Player 1 Info -->
+                <div class="flex-shrink-0 text-center">
+                    <div class="bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl p-2 shadow-lg">
+                        <div class="player-disc player1-disc mx-auto mb-1 pulse-animation" id="player1Indicator"></div>
+                        <p class="font-bold text-white text-xs" id="player1Label">Player 1</p>
+                        <div class="bg-white/30 rounded-lg p-1 mt-1">
+                            <p class="text-white font-bold text-xs">points</p>
+                            <p class="text-white font-bold text-xl" id="player1Score">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Board Grid -->
+                <div class="flex-grow flex items-center justify-center">
+                    <div id="gameBoard" class="grid grid-cols-6 gap-1.5 bg-game-purple p-2 rounded-xl w-full max-w-md">
+                        <!-- Grid cells will be generated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Player 2 Info -->
+                <div class="flex-shrink-0 text-center">
+                    <div class="bg-gradient-to-br from-green-700 to-green-900 rounded-xl p-2 shadow-lg">
+                        <div class="player-disc player2-disc mx-auto mb-1" id="player2Indicator"></div>
+                        <p class="font-bold text-white text-xs" id="player2Label">Player 2</p>
+                        <div class="bg-white/30 rounded-lg p-1 mt-1">
+                            <p class="text-white font-bold text-xs">points</p>
+                            <p class="text-white font-bold text-xl" id="player2Score">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Message -->
+            <div id="feedback" class="mt-2 text-center text-base font-bold min-h-5"></div>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameOverScreen" class="hidden h-screen flex items-center justify-center p-4">
+        <div class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 max-w-xl w-full text-center">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4 text-game-purple">Ready to play again?</h1>
+            
+            <div class="mb-6">
+                <div class="text-5xl mb-3">
+                    <i class="fas fa-trophy text-yellow-400"></i>
+                </div>
+                <h2 id="winnerText" class="text-2xl font-bold text-game-pink mb-3"></h2>
+                <div class="flex justify-center gap-8 text-xl font-bold">
+                    <div>
+                        <p class="text-gray-600">Player 1</p>
+                        <p id="finalScore1" class="text-orange-500 text-3xl">0</p>
+                    </div>
+                    <div class="text-3xl text-gray-400">-</div>
+                    <div>
+                        <p class="text-gray-600">Player 2</p>
+                        <p id="finalScore2" class="text-green-700 text-3xl">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button onclick="resetGame()" class="bg-gradient-to-r from-game-purple to-game-pink hover:from-game-pink hover:to-game-purple text-white font-bold text-lg px-6 py-3 rounded-full shadow-xl transform hover:scale-105 transition duration-300">
+                    <i class="fas fa-redo mr-2"></i> Play Again
+                </button>
+                <button onclick="goHome()" class="bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white font-bold text-lg px-6 py-3 rounded-full shadow-xl transform hover:scale-105 transition duration-300">
+                    <i class="fas fa-home mr-2"></i> Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game State
+        let gameState = {
+            challenge: null,
+            partner: null,
+            currentPlayer: 1,
+            scores: [0, 0],
+            board: [],
+            ownerBoard: [],
+            questions: [], // Precomputed questions
+            currentQuestionIndex: 0,
+            gameActive: false,
+            computerThinking: false,
+            timer: null,
+            timeLeft: 15
+        };
+
+        // Sound effects using Web Audio API
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            switch(type) {
+                case 'click':
+                    oscillator.frequency.value = 800;
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.1);
+                    break;
+                case 'correct':
+                    oscillator.frequency.value = 1000;
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.15);
+                    setTimeout(() => {
+                        const osc2 = audioContext.createOscillator();
+                        const gain2 = audioContext.createGain();
+                        osc2.connect(gain2);
+                        gain2.connect(audioContext.destination);
+                        osc2.frequency.value = 1500;
+                        gain2.gain.setValueAtTime(0.3, audioContext.currentTime);
+                        osc2.start(audioContext.currentTime);
+                        osc2.stop(audioContext.currentTime + 0.15);
+                    }, 100);
+                    break;
+                case 'wrong':
+                    oscillator.frequency.value = 200;
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.3);
+                    break;
+                case 'timeout':
+                    oscillator.frequency.value = 150;
+                    gainNode.gain.setValueAtTime(0.4, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.5);
+                    break;
+                case 'win':
+                    [523, 659, 784, 1047].forEach((freq, i) => {
+                        setTimeout(() => {
+                            const osc = audioContext.createOscillator();
+                            const gain = audioContext.createGain();
+                            osc.connect(gain);
+                            gain.connect(audioContext.destination);
+                            osc.frequency.value = freq;
+                            gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+                            gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                            osc.start(audioContext.currentTime);
+                            osc.stop(audioContext.currentTime + 0.5);
+                        }, i * 150);
+                    });
+                    break;
+            }
+        }
+
+        function selectChallenge(level) {
+            gameState.challenge = level;
+            playSound('click');
+            document.querySelectorAll('.challenge-btn').forEach(btn => {
+                btn.classList.remove('ring-4', 'ring-yellow-400');
+            });
+            event.target.closest('.challenge-btn').classList.add('ring-4', 'ring-yellow-400');
+            checkStartButton();
+        }
+
+        function selectPartner(partner) {
+            gameState.partner = partner;
+            playSound('click');
+            document.querySelectorAll('.partner-btn').forEach(btn => {
+                btn.classList.remove('ring-4', 'ring-yellow-400');
+            });
+            event.target.closest('.partner-btn').classList.add('ring-4', 'ring-yellow-400');
+            
+            if (partner === 'computer') {
+                document.getElementById('player2Label').textContent = 'Computer';
+            } else {
+                document.getElementById('player2Label').textContent = 'Player 2';
+            }
+            checkStartButton();
+        }
+
+        function checkStartButton() {
+            const btn = document.getElementById('startGameBtn');
+            if (gameState.challenge && gameState.partner) {
+                btn.disabled = false;
+                btn.classList.add('animate-pulse');
+            }
+        }
+
+        function startGame() {
+            playSound('click');
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            initializeGame();
+        }
+
+        function initializeGame() {
+            gameState.currentPlayer = 1;
+            gameState.scores = [0, 0];
+            gameState.board = Array(36).fill(null);
+            gameState.ownerBoard = Array(36).fill(null);
+            gameState.questions = [];
+            gameState.currentQuestionIndex = 0;
+            gameState.gameActive = true;
+            
+            // Generate board strategically - NOT tied to specific cells
+            const maxDivisor = gameState.challenge === 'easy' ? 5 : 9;
+            
+            // First, create 36 random questions
+            const allQuestions = [];
+            for (let i = 0; i < 36; i++) {
+                const divisor = Math.floor(Math.random() * (maxDivisor - 1)) + 2;
+                const quotient = Math.floor(Math.random() * 10) + 1;
+                const remainder = Math.floor(Math.random() * divisor); // remainder must be less than divisor
+                const dividend = divisor * quotient + remainder;
+                
+                allQuestions.push({
+                    dividend,
+                    divisor,
+                    remainder
+                });
+            }
+            
+            // Shuffle questions
+            gameState.questions = shuffleArray(allQuestions);
+            
+            // Now create board with strategic distribution
+            // Ensure each question's remainder appears at least once, preferably 2-3 times
+            const remainderCounts = new Array(maxDivisor).fill(0);
+            
+            // Count how many times each remainder is needed (from questions)
+            gameState.questions.forEach(q => {
+                remainderCounts[q.remainder]++;
+            });
+            
+            // Fill board ensuring all needed remainders are present
+            let boardIndex = 0;
+            
+            // First pass: Place at least one of each needed remainder
+            for (let r = 0; r < maxDivisor; r++) {
+                if (remainderCounts[r] > 0) {
+                    gameState.board[boardIndex] = r;
+                    boardIndex++;
+                }
+            }
+            
+            // Second pass: Add duplicates for frequently needed remainders
+            const sortedRemainders = remainderCounts
+                .map((count, remainder) => ({ remainder, count }))
+                .filter(item => item.count > 0)
+                .sort((a, b) => b.count - a.count);
+            
+            while (boardIndex < 36) {
+                for (let i = 0; i < sortedRemainders.length && boardIndex < 36; i++) {
+                    gameState.board[boardIndex] = sortedRemainders[i].remainder;
+                    boardIndex++;
+                }
+            }
+            
+            // Shuffle the board positions for randomness
+            gameState.board = shuffleArray(gameState.board);
+            
+            renderBoard();
+            showNextQuestion();
+            updateScores();
+            updatePlayerIndicator();
+        }
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function showNextQuestion() {
+            if (gameState.currentQuestionIndex >= gameState.questions.length) {
+                endGame();
+                return;
+            }
+            
+            const question = gameState.questions[gameState.currentQuestionIndex];
+            
+            // Verify there's at least one valid move for this question
+            const hasValidMoves = gameState.board.some((value, index) => 
+                value === question.remainder && gameState.ownerBoard[index] === null
+            );
+            
+            // This should always be true now, but just in case
+            if (!hasValidMoves) {
+                console.error('No valid moves found - this should not happen!');
+                gameState.currentQuestionIndex++;
+                showNextQuestion();
+                return;
+            }
+            
+            document.getElementById('question').textContent = `${question.dividend} ÷ ${question.divisor}`;
+            
+            const playerName = gameState.currentPlayer === 1 ? 'Player 1' : 
+                (gameState.partner === 'computer' ? 'Computer' : 'Player 2');
+            document.getElementById('questionSubtext').textContent = `${playerName}'s turn - Find the remainder!`;
+            
+            startTimer();
+            
+            // If it's computer's turn, make it answer
+            if (gameState.partner === 'computer' && gameState.currentPlayer === 2) {
+                setTimeout(() => {
+                    computerMove();
+                }, 2000);
+            }
+        }
+
+        function startTimer() {
+            gameState.timeLeft = 15;
+            updateTimerDisplay();
+            
+            gameState.timer = setInterval(() => {
+                gameState.timeLeft--;
+                updateTimerDisplay();
+                
+                if (gameState.timeLeft <= 0) {
+                    handleTimeout();
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (gameState.timer) {
+                clearInterval(gameState.timer);
+                gameState.timer = null;
+            }
+        }
+
+        function updateTimerDisplay() {
+            const percentage = (gameState.timeLeft / 15) * 100;
+            const timerBar = document.getElementById('timerBar');
+            const timerText = document.getElementById('timerText');
+            
+            timerBar.style.width = percentage + '%';
+            timerText.textContent = gameState.timeLeft + 's';
+            
+            // Change color based on time left
+            if (gameState.timeLeft <= 5) {
+                timerBar.className = 'timer-bar h-full rounded-full timer-warning';
+            } else if (gameState.timeLeft <= 10) {
+                timerBar.className = 'timer-bar h-full bg-yellow-500 rounded-full';
+            } else {
+                timerBar.className = 'timer-bar h-full bg-green-500 rounded-full';
+            }
+        }
+
+        function handleTimeout() {
+            stopTimer();
+            playSound('timeout');
+            
+            const playerName = gameState.currentPlayer === 1 ? 'Player 1' : 
+                (gameState.partner === 'computer' ? 'Computer' : 'Player 2');
+            showFeedback(`Time's up! ${playerName} missed the turn!`, 'text-red-500');
+            
+            gameState.currentQuestionIndex++;
+            
+            setTimeout(() => {
+                switchPlayer();
+                showNextQuestion();
+            }, 2000);
+        }
+
+        function renderBoard() {
+            const board = document.getElementById('gameBoard');
+            board.innerHTML = '';
+            
+            gameState.board.forEach((value, index) => {
+                const cell = document.createElement('div');
+                const owner = gameState.ownerBoard[index];
+                
+                const isDisabled = owner !== null;
+                cell.className = `cell bg-purple-600 rounded-lg aspect-square flex items-center justify-center text-white font-bold text-lg relative ${
+                    isDisabled ? 'disabled' : 'hover:bg-purple-500 cursor-pointer'
+                }`;
+                
+                if (!isDisabled) {
+                    cell.onclick = () => handleCellClick(index);
+                }
+                
+                if (owner !== null) {
+                    const disc = document.createElement('div');
+                    disc.className = `player-disc ${owner === 0 ? 'player1-disc' : 'player2-disc'}`;
+                    disc.textContent = value;
+                    cell.appendChild(disc);
+                } else {
+                    cell.textContent = value;
+                }
+                
+                board.appendChild(cell);
+            });
+        }
+
+        function handleCellClick(index) {
+            if (!gameState.gameActive || gameState.computerThinking) return;
+            if (gameState.ownerBoard[index] !== null) return;
+            
+            const currentQuestion = gameState.questions[gameState.currentQuestionIndex];
+            const clickedValue = gameState.board[index];
+            
+            playSound('click');
+            
+            if (clickedValue === currentQuestion.remainder) {
+                stopTimer();
+                playSound('correct');
+                claimCell(index);
+                checkTrapped();
+                updateScores();
+                
+                gameState.currentQuestionIndex++;
+                
+                if (gameState.currentQuestionIndex >= gameState.questions.length) {
+                    setTimeout(() => endGame(), 1500);
+                } else {
+                    setTimeout(() => {
+                        switchPlayer();
+                        showNextQuestion();
+                    }, 1000);
+                }
+            } else {
+                playSound('wrong');
+                showFeedback('Wrong! Try again!', 'text-red-500');
+            }
+        }
+
+        function claimCell(index) {
+            gameState.ownerBoard[index] = gameState.currentPlayer - 1;
+            const playerName = gameState.currentPlayer === 1 ? 'Player 1' : 
+                (gameState.partner === 'computer' ? 'Computer' : 'Player 2');
+            showFeedback(`${playerName} got it! +1 point`, 'text-green-500');
+            renderBoard();
+        }
+
+        function checkTrapped() {
+            const directions = [
+                [-1, 0], [1, 0], [0, -1], [0, 1],
+                [-1, -1], [-1, 1], [1, -1], [1, 1]
+            ];
+            
+            const currentPlayerOwner = gameState.currentPlayer - 1;
+            const opponentOwner = currentPlayerOwner === 0 ? 1 : 0;
+            
+            let flipped = false;
+            
+            gameState.ownerBoard.forEach((owner, index) => {
+                if (owner === opponentOwner) {
+                    const row = Math.floor(index / 6);
+                    const col = index % 6;
+                    
+                    directions.forEach(([dr, dc]) => {
+                        const newRow1 = row + dr;
+                        const newCol1 = col + dc;
+                        const newRow2 = row - dr;
+                        const newCol2 = col - dc;
+                        
+                        if (isValidPosition(newRow1, newCol1) && isValidPosition(newRow2, newCol2)) {
+                            const index1 = newRow1 * 6 + newCol1;
+                            const index2 = newRow2 * 6 + newCol2;
+                            
+                            if (gameState.ownerBoard[index1] === currentPlayerOwner && 
+                                gameState.ownerBoard[index2] === currentPlayerOwner) {
+                                gameState.ownerBoard[index] = currentPlayerOwner;
+                                flipped = true;
+                            }
+                        }
+                    });
+                }
+            });
+            
+            if (flipped) {
+                playSound('correct');
+                renderBoard();
+                setTimeout(() => {
+                    document.querySelectorAll('.player-disc').forEach(disc => {
+                        disc.classList.add('trapped');
+                    });
+                    setTimeout(() => {
+                        document.querySelectorAll('.player-disc').forEach(disc => {
+                            disc.classList.remove('trapped');
+                        });
+                    }, 600);
+                }, 100);
+            }
+        }
+
+        function isValidPosition(row, col) {
+            return row >= 0 && row < 6 && col >= 0 && col < 6;
+        }
+
+        function computerMove() {
+            gameState.computerThinking = true;
+            
+            const currentQuestion = gameState.questions[gameState.currentQuestionIndex];
+            const targetRemainder = currentQuestion.remainder;
+            
+            // Find all cells with the correct answer
+            const validMoves = [];
+            gameState.board.forEach((value, index) => {
+                if (value === targetRemainder && gameState.ownerBoard[index] === null) {
+                    validMoves.push(index);
+                }
+            });
+            
+            if (validMoves.length > 0) {
+                // Strategy: Prioritize moves that create sandwiches
+                let bestMove = validMoves[0];
+                let maxFlips = 0;
+                
+                // Evaluate each possible move
+                validMoves.forEach(moveIndex => {
+                    const flips = countPotentialFlips(moveIndex, gameState.currentPlayer - 1);
+                    if (flips > maxFlips) {
+                        maxFlips = flips;
+                        bestMove = moveIndex;
+                    }
+                });
+                
+                // If no flips possible, choose center positions or random
+                if (maxFlips === 0) {
+                    // Prefer center positions for better control
+                    const centerMoves = validMoves.filter(idx => {
+                        const row = Math.floor(idx / 6);
+                        const col = idx % 6;
+                        return row >= 2 && row <= 3 && col >= 2 && col <= 3;
+                    });
+                    
+                    if (centerMoves.length > 0) {
+                        bestMove = centerMoves[Math.floor(Math.random() * centerMoves.length)];
+                    } else {
+                        bestMove = validMoves[Math.floor(Math.random() * validMoves.length)];
+                    }
+                }
+                
+                setTimeout(() => {
+                    stopTimer();
+                    playSound('correct');
+                    claimCell(bestMove);
+                    checkTrapped();
+                    updateScores();
+                    
+                    gameState.computerThinking = false;
+                    gameState.currentQuestionIndex++;
+                    
+                    if (gameState.currentQuestionIndex >= gameState.questions.length) {
+                        setTimeout(() => endGame(), 1500);
+                    } else {
+                        setTimeout(() => {
+                            switchPlayer();
+                            showNextQuestion();
+                        }, 1000);
+                    }
+                }, 1000);
+            } else {
+                // This should never happen with the new board generation
+                console.error('Computer has no valid moves - board generation error!');
+                gameState.computerThinking = false;
+                handleTimeout();
+            }
+        }
+
+        // Helper function to count potential flips for strategic computer moves
+        function countPotentialFlips(cellIndex, playerOwner) {
+            const directions = [
+                [-1, 0], [1, 0], [0, -1], [0, 1],
+                [-1, -1], [-1, 1], [1, -1], [1, 1]
+            ];
+            
+            const opponentOwner = playerOwner === 0 ? 1 : 0;
+            let flipCount = 0;
+            
+            // Temporarily claim the cell
+            const tempOwner = [...gameState.ownerBoard];
+            tempOwner[cellIndex] = playerOwner;
+            
+            // Count how many opponent cells would be flipped
+            tempOwner.forEach((owner, index) => {
+                if (owner === opponentOwner) {
+                    const row = Math.floor(index / 6);
+                    const col = index % 6;
+                    
+                    directions.forEach(([dr, dc]) => {
+                        const newRow1 = row + dr;
+                        const newCol1 = col + dc;
+                        const newRow2 = row - dr;
+                        const newCol2 = col - dc;
+                        
+                        if (isValidPosition(newRow1, newCol1) && isValidPosition(newRow2, newCol2)) {
+                            const index1 = newRow1 * 6 + newCol1;
+                            const index2 = newRow2 * 6 + newCol2;
+                            
+                            if (tempOwner[index1] === playerOwner && tempOwner[index2] === playerOwner) {
+                                flipCount++;
+                            }
+                        }
+                    });
+                }
+            });
+            
+            return flipCount;
+        }
+
+        function updatePlayerIndicator() {
+            const p1 = document.getElementById('player1Indicator');
+            const p2 = document.getElementById('player2Indicator');
+            
+            if (gameState.currentPlayer === 1) {
+                p1.classList.add('pulse-animation');
+                p2.classList.remove('pulse-animation');
+            } else {
+                p2.classList.add('pulse-animation');
+                p1.classList.remove('pulse-animation');
+            }
+        }
+
+        function updateScores() {
+            const p1Score = gameState.ownerBoard.filter(v => v === 0).length;
+            const p2Score = gameState.ownerBoard.filter(v => v === 1).length;
+            
+            gameState.scores = [p1Score, p2Score];
+            
+            document.getElementById('player1Score').textContent = p1Score;
+            document.getElementById('player2Score').textContent = p2Score;
+        }
+
+        function showFeedback(message, colorClass) {
+            const feedback = document.getElementById('feedback');
+            feedback.textContent = message;
+            feedback.className = `mt-2 text-center text-base font-bold min-h-5 ${colorClass}`;
+            
+            setTimeout(() => {
+                feedback.textContent = '';
+            }, 2000);
+        }
+
+        function endGame() {
+            gameState.gameActive = false;
+            stopTimer();
+            playSound('win');
+            
+            setTimeout(() => {
+                document.getElementById('gameScreen').classList.add('hidden');
+                document.getElementById('gameOverScreen').classList.remove('hidden');
+                
+                const p1Score = gameState.scores[0];
+                const p2Score = gameState.scores[1];
+                
+                document.getElementById('finalScore1').textContent = p1Score;
+                document.getElementById('finalScore2').textContent = p2Score;
+                
+                if (p1Score > p2Score) {
+                    document.getElementById('winnerText').textContent = 'Player 1 Wins! 🎉';
+                } else if (p2Score > p1Score) {
+                    const winner = gameState.partner === 'computer' ? 'Computer Wins! 🤖' : 'Player 2 Wins! 🎉';
+                    document.getElementById('winnerText').textContent = winner;
+                } else {
+                    document.getElementById('winnerText').textContent = "It's a Tie! 🤝";
+                }
+            }, 1500);
+        }
+
+        function resetGame() {
+            playSound('click');
+            stopTimer();
+            document.getElementById('gameOverScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('startScreen').classList.remove('hidden');
+            
+            gameState = {
+                challenge: null,
+                partner: null,
+                currentPlayer: 1,
+                scores: [0, 0],
+                board: [],
+                ownerBoard: [],
+                questions: [],
+                currentQuestionIndex: 0,
+                gameActive: false,
+                computerThinking: false,
+                timer: null,
+                timeLeft: 15
+            };
+            
+            document.querySelectorAll('.challenge-btn, .partner-btn').forEach(btn => {
+                btn.classList.remove('ring-4', 'ring-yellow-400');
+            });
+            
+            document.getElementById('startGameBtn').disabled = true;
+            document.getElementById('startGameBtn').classList.remove('animate-pulse');
+        }
+
+        function goHome() {
+            playSound('click');
+            stopTimer();
+            window.location.href = 'index.html';
+        }
+
+        function switchPlayer() {
+            gameState.currentPlayer = gameState.currentPlayer === 1 ? 2 : 1;
+            updatePlayerIndicator();
+        }
+    </script>
+
+</body>
+</html>
